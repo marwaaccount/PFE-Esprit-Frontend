@@ -1,0 +1,96 @@
+<div class="container">
+<div *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+
+<div *ngIf="candidatures.length > 0">
+  <h2>Détails des candidatures pour l'offre {{ titreOffre}}</h2>
+  <ul>
+    <h3>Informations sur les candidats</h3>
+    <li *ngFor="let candidature of candidatures">
+      <div>
+      <!-- Affichage conditionnel basé sur la présence de nom et prénom -->
+        <p *ngIf="candidature.nom || candidature.prenom">
+          <strong>Nom:</strong> {{ candidature.nom }} {{ candidature.prenom }}
+        </p>
+        <strong>cvfilename:</strong> {{ candidature.cvfilename}} 
+        <strong>CV:</strong>
+          <a *ngIf="objectURLs[candidature.id]" [href]="objectURLs[candidature.id]" download="cvhope.pdf">
+            {{ candidature.cvfilename || 'Download CV' }}
+          </a>
+          <span *ngIf="!objectURLs[candidature.id]">N/A</span>
+      
+
+        <!-- Affichage conditionnel basé sur la présence d'email -->
+        <p *ngIf="candidature.email">
+          <strong>Email:</strong> {{ candidature.email }}
+        </p>
+
+        <!-- Affichage conditionnel basé sur la présence de numéro -->
+        <p *ngIf="candidature.num !== null && candidature.num !== undefined">
+          <strong>Numéro:</strong> {{ candidature.num }}
+        </p>
+
+        <!-- Affichage conditionnel basé sur la présence de poste -->
+        <p *ngIf="candidature.poste">
+          <strong>Poste souhaité:</strong> {{ candidature.poste }}
+        </p>
+
+        <!-- Affichage conditionnel basé sur la présence d'adresse -->
+        <p *ngIf="candidature.adresse">
+          <strong>Adresse:</strong> {{ candidature.adresse }}
+        </p>
+
+        
+
+        <!-- Affichage des diplômes -->
+        <div *ngIf="candidature.diplomes.length > 0" class="diplomes-list">
+          <h4>Diplômes</h4>
+          <ul>
+            <li *ngFor="let diplome of candidature.diplomes">
+              <p><strong>Faculté:</strong> {{ diplome.faculte || 'N/A' }}</p>
+              <p><strong>Intitulé:</strong> {{ diplome.intitule || 'N/A' }}</p>
+              <p><strong>Date:</strong> {{ diplome.date || 'N/A' }}</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Affichage des expériences -->
+        <div *ngIf="candidature.experiences.length > 0" class="experiences-list">
+          <h4>Expériences</h4>
+          <ul>
+            <li *ngFor="let experience of candidature.experiences">
+              <p><strong>Période:</strong> {{ experience.periode || 'N/A' }}</p>
+              <p><strong>Nom de la Société:</strong> {{ experience.nomSociete || 'N/A' }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+<button (click)="openApproveModal(candidature)">Approuver</button>
+<button class="reject-button" (click)="rejeterCandidature(candidature.id)">Rejeter</button>
+
+<div *ngIf="showApproveModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeApproveModal()">&times;</span>
+    <h2>Planifier l'entretien</h2>
+    <label for="interviewDate">Date:</label>
+    <input type="date" id="interviewDate" [(ngModel)]="interviewDate" required>
+    
+    <label for="interviewLocation">Lieu:</label>
+    <input type="text" id="interviewLocation" [(ngModel)]="interviewLocation" required>
+    
+    <button (click)="approuver(candidature.id)">Confirmer</button>
+    <div *ngIf="interviewDate && !isDateValid()" class="error-message">
+      <p style="color: red;">La date doit être supérieure à aujourd'hui.</p>
+    </div>
+  </div>
+</div>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="candidatures.length === 0">
+  <p>Aucune candidature trouvée.</p>
+</div>
+</div>

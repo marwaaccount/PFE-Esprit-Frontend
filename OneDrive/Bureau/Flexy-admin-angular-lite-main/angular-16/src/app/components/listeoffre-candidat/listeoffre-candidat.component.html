@@ -1,0 +1,57 @@
+
+<mat-card>
+
+         <!-- Formulaire de Recherche et de Filtrage -->
+    <form >
+      <mat-form-field appearance="fill">
+        <mat-label>Titre du poste</mat-label>
+        <input matInput [(ngModel)]="searchCriteria.title" name="title" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Localisation</mat-label>
+        <input matInput [(ngModel)]="searchCriteria.location" name="location" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Type de contrat</mat-label>
+        <mat-select [(ngModel)]="searchCriteria.contractType" name="contractType">
+          <mat-option *ngFor="let type of contractTypes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="searchJobs()">Rechercher</button>
+    </form>
+    
+    <mat-card-content>
+      <mat-card-title>Liste des Offres</mat-card-title>
+      <mat-accordion multi="true" class="example-headers-align">
+        <mat-expansion-panel *ngFor="let offre of offres$ | async; let i = index"
+        [expanded]="step === i" 
+        (opened)="setStep(i)" 
+        hideToggle="true"> 
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ offre.titre }}</mat-panel-title>
+            <mat-panel-description>{{ offre.localisation }}</mat-panel-description>
+            <mat-panel-description>{{ offre.exigences }}</mat-panel-description>
+            <mat-panel-description>{{ offre.datefin }}</mat-panel-description>
+          </mat-expansion-panel-header>
+  
+          <!-- Contenu de chaque mat-expansion-panel -->
+          <mat-form-field>
+            <input matInput placeholder="Détails de l'offre" value="{{ offre.details }}" disabled> <!-- Exemple de champ, adaptez selon vos besoins -->
+          </mat-form-field>
+
+          
+  
+          <!-- Boutons pour naviguer dans l'accordion -->
+          <mat-action-row>
+            <button mat-raised-button color="primary" (click)="openPopup(offre.titre,offre.id)" >Postuler</button>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row> 
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+  

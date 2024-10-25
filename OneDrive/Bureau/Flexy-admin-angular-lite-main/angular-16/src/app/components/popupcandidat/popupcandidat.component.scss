@@ -1,0 +1,15 @@
+.card-body {
+    overflow: auto; /* Ensure content is not hidden */
+  }
+  /* Ensure the form is scrollable if it exceeds the viewport height */
+form {
+    max-height: 80vh; /* or another appropriate height */
+    overflow-y: auto;
+  }
+  
+  /* Ensure the container around the form allows scrolling if needed */
+  .container {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  

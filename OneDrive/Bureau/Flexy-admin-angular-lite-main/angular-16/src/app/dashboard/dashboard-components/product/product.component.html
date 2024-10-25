@@ -1,0 +1,48 @@
+<!-- Daily Activity -->
+<mat-card class="w-100">
+  <mat-card-content>
+    <h4 class="mb-56">Fiches de paie</h4>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource"  class="text-nowrap w-100">
+
+        
+
+
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef>Nom </th>
+          <td mat-cell *matCellDef="let element">
+            <p class="mb-0 fw-medium op-5">{{element.nom}}</p>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef>Prenom </th>
+          <td mat-cell *matCellDef="let element">
+            <p class="mb-0 fw-medium op-5">{{element.prenom}}</p>
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="cin">
+          <th mat-header-cell *matHeaderCellDef>CIN </th>
+          <td mat-cell *matCellDef="let element">
+            <p class="mb-0 fw-medium op-5">{{element.cin}}</p>
+          </td>
+        </ng-container>
+
+         
+     
+
+        <ng-container matColumnDef="liste-fiches">
+          <th mat-header-cell *matHeaderCellDef>liste fiches </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="goListFiche(element.cin,element.id)">liste fiches</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

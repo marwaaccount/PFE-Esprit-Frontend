@@ -1,0 +1,91 @@
+<form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+  <mat-card-title>Veuillez introduire vos informations pour postuler à l'offre : {{data.titre}}</mat-card-title>
+
+  <mat-form-field class="w-full">
+    <input
+        type="file"
+        class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
+        accept=".pdf" (change)="onFileChange($event, 'lettremotivation')"
+    />
+    <mat-label>Lettre de motivation</mat-label>
+    <input matInput cdkFocusInitial class="z-0" />
+    <mat-icon matSuffix class="mr-2">cloud_upload</mat-icon>
+    <mat-error *ngIf="fileErrors.lettremotivation">Lettre de motivation requise.</mat-error>
+  </mat-form-field>
+
+  <div formGroupName="candidat">
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" placeholder="Nom">
+      <mat-error *ngIf="applicationForm.get('candidat.nom')?.hasError('required')">Nom requis</mat-error>
+      <mat-error *ngIf="applicationForm.get('candidat.nom')?.hasError('pattern')">Le nom ne peut contenir que des lettres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="prenom" placeholder="Prénom">
+      <mat-error *ngIf="applicationForm.get('candidat.prenom')?.hasError('required')">Prénom requis</mat-error>
+      <mat-error *ngIf="applicationForm.get('candidat.prenom')?.hasError('pattern')">Le prénom ne peut contenir que des lettres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Adresse</mat-label>
+      <input matInput formControlName="adresse" placeholder="Adresse">
+      <mat-error *ngIf="applicationForm.get('candidat.adresse')?.hasError('required')">Adresse requise</mat-error>
+      
+    </mat-form-field>
+  
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Email">
+      <mat-error *ngIf="applicationForm.get('candidat.email')?.hasError('required')">Email requis</mat-error>
+      <mat-error *ngIf="applicationForm.get('candidat.email')?.hasError('email')">Email invalide</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Numéro</mat-label>
+      <input matInput formControlName="num" type="number" placeholder="Numéro de téléphone">
+      <mat-error *ngIf="applicationForm.get('candidat.num')?.hasError('required')">Numéro requis</mat-error>
+      <mat-error *ngIf="applicationForm.get('candidat.num')?.hasError('pattern')">Numéro doit contenir 8 chiffres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <input
+          type="file"
+        
+          class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
+          accept=".pdf" (change)="onFileChange($event, 'cv')"
+      />
+      <mat-label>CV</mat-label>
+      <input matInput cdkFocusInitial class="z-0" />
+      <mat-icon matSuffix class="mr-2">cloud_upload</mat-icon>
+      <mat-error *ngIf="fileErrors.cv">CV requis.</mat-error>
+
+    </mat-form-field>
+  </div>
+
+  <div formGroupName="experience">
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Nom de la Société</mat-label>
+      <input matInput formControlName="nomSociete" placeholder="Nom de la Société">
+      <mat-error *ngIf="applicationForm.get('experience.nomSociete')?.hasError('required')">Nom de la société requis</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Période Expérience Professionnelle en années</mat-label>
+      <input matInput formControlName="periode" placeholder="Période">
+      <mat-error *ngIf="applicationForm.get('experience.periode')?.hasError('required')">Période requise</mat-error>
+      <mat-error *ngIf="applicationForm.get('experience.periode')?.hasError('pattern')">Période doit être un nombre</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div formGroupName="diplome">
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Faculté</mat-label>
+      <input matInput formControlName="faculte" placeholder="Faculté">
+      <mat-error *ngIf="applicationForm.get('diplome.faculte')?.hasError('required')">Faculté requise</mat-error>
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="applicationForm.invalid">Postuler</button>
+</form>

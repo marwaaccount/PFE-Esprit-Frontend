@@ -1,0 +1,14 @@
+mat-form-field {
+    width: 100%; /* Pour s'assurer que le champ prend toute la largeur disponible */
+    margin-bottom: 16px; /* Ajoutez un espace en bas */
+  }
+  
+  mat-error {
+    font-size: 0.8em; /* Réduire la taille si nécessaire */
+    color: red; /* Couleur pour le message d'erreur */
+  }
+
+  .container {
+    height: 500px; /* Set as needed */
+    overflow-y: auto; /* Allow scrolling within the container */
+  }

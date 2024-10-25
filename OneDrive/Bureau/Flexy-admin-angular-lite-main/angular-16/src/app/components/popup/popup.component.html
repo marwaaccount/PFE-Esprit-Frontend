@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>{{ data.mode === 'add' ? 'Ajouter' : 'Modifier' }} fiche de paie pour l'utilisateur {{ data.name }} :</h2>
+<div mat-dialog-content>
+  <!-- Form Layout -->
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="ficheForm" (ngSubmit)="actionFiche()">
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Nom et Prénom : {{ data.name }}</mat-label>
+          <input matInput type="text" placeholder="CIN Employé" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date" (dateChange)="validateDate()">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="isDateControlInvalid()">
+            Veuillez saisir une date valide entre janvier 2024 et le dernier jour du mois en cours.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Nombre d'heures travaillées</mat-label>
+          <input matInput type="number" formControlName="nbheurestr" min="0">
+          <mat-error *ngIf="ficheForm.get('nbheurestr')?.invalid && ficheForm.get('nbheurestr')?.touched">
+            Ce champ est requis et doit être un nombre positif.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Nombre d'heures supplémentaires travaillées</mat-label>
+          <input matInput type="number" formControlName="nbheuressupp" min="0">
+          <mat-error *ngIf="ficheForm.get('nbheuressupp')?.invalid && ficheForm.get('nbheuressupp')?.touched">
+            Ce champ est requis et doit être un nombre positif.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-button type="submit" class="btn btn-info fw-normal" [disabled]="ficheForm.invalid">
+          {{ data.mode === 'add' ? 'Ajouter' : 'Modifier' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

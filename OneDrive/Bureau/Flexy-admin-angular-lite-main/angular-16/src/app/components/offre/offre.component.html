@@ -1,0 +1,76 @@
+<form [formGroup]="offreForm" (ngSubmit)="manageOffre()">
+  <!-- Titre -->
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Titre</mat-label>
+    <input matInput 
+           formControlName="titre" 
+           placeholder="Entrer le titre de l'offre">
+    <mat-error *ngIf="offreForm.get('titre')?.hasError('required')">
+      Le titre est requis.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Détails -->
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Détails</mat-label>
+    <textarea matInput 
+              formControlName="details" 
+              placeholder="Entrer les détails de l'offre"></textarea>
+    <mat-error *ngIf="offreForm.get('details')?.hasError('required')">
+      Les détails sont requis.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Localisation -->
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Localisation</mat-label>
+    <input matInput 
+           formControlName="localisation" 
+           placeholder="Entrer la localisation de l'offre">
+    <mat-error *ngIf="offreForm.get('localisation')?.hasError('required')">
+      La localisation est requise.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Type de Contrat -->
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Type de Contrat</mat-label>
+    <mat-select formControlName="typeContrat" placeholder="Choisissez un type">
+      <mat-option *ngFor="let type of types" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="offreForm.get('typeContrat')?.hasError('required')">
+      Le type de contrat est requis.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Exigences -->
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Exigences</mat-label>
+    <input matInput 
+           formControlName="exigences" 
+           placeholder="Entrer les exigences de l'offre">
+    <mat-error *ngIf="offreForm.get('exigences')?.hasError('required')">
+      Les exigences sont requises.
+    </mat-error>
+  </mat-form-field>
+
+   Date de Fin 
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Date Fin</mat-label>
+    <input matInput 
+           type="date" 
+           formControlName="datefin" 
+           placeholder="Entrer la date limite de candidature à cette offre">
+    <mat-error *ngIf="offreForm.get('datefin')?.hasError('required')">
+      La date de fin est requise.
+    </mat-error>
+    <mat-error *ngIf="offreForm.get('datefin')?.hasError('invalidDate')">
+      La date de fin doit être supérieure à la date d'aujourd'hui
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit"  >{{textMode}}</button>
+</form>
+
