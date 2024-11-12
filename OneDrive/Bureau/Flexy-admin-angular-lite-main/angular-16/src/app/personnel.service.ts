@@ -1,27 +1,51 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Personnel } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/gestionpersonnel/personnel.model'
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Personnel } from './components/gestionpersonnel/personnel.model';
 @Injectable({
   providedIn: 'root'
 })
 export class PersonnelService {
 
-  readonly API_URL="http://localhost:8080"
+  readonly API_URL="http://localhost:8082"
   readonly ENDPOINT_FICHE="/personnel"
 
   constructor(private httpCLient :HttpClient) { }
 
   getpersonnel(): Observable<Personnel[]>{
-    
-    return this.httpCLient.get<Personnel[]>(this.API_URL+this.ENDPOINT_FICHE+"/all");
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get<Personnel[]>(this.API_URL+this.ENDPOINT_FICHE+"/all",  { headers  });
     }
-  
+    getpersonnelbyId(): Observable<Personnel[]>{
+      const headers = new HttpHeaders();
+      const token = localStorage.getItem('Authorization');
+      const idUser  = localStorage.getItem("idUser");
+      headers.append('Access-Control-Allow-Origin', '*');
+      headers.append('Access-Control-Allow-Credentials', 'true');
+      headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', `${token}`);
+        let params = new HttpParams();
+        if (idUser  !== null) {
+          params = params.append('id', idUser );
+      } 
+      return this.httpCLient.get<Personnel[]>(this.API_URL+this.ENDPOINT_FICHE+"/fichepaiepers",  { headers,params });
+      }
     // Récupérer un personnel par CIN
   getByCin(cin: number): Observable<string> {
-    return this.httpCLient.get<string>(`${this.API_URL}${this.ENDPOINT_FICHE}/bycin/${cin}`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get<string>(`${this.API_URL}${this.ENDPOINT_FICHE}/bycin/${cin}`,  { headers  });
   }
 
   // Créer un nouveau personnel
@@ -33,9 +57,12 @@ export class PersonnelService {
   }*/
 
   createPersonnel(personnel: Personnel): Observable<Personnel> {
-    const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-    });
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
     return this.httpCLient.post<Personnel>(this.API_URL + this.ENDPOINT_FICHE + "/add", personnel, { headers })
         .pipe(
             catchError(err => {
@@ -47,17 +74,34 @@ export class PersonnelService {
 
   // Mettre à jour un personnel existant
   updatePersonnel(id: number, personnel: Personnel): Observable<Personnel> {
-    return this.httpCLient.put<Personnel>(`${this.API_URL}${this.ENDPOINT_FICHE}/modif/${id}`, personnel);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.put<Personnel>(`${this.API_URL}${this.ENDPOINT_FICHE}/modif/${id}`, personnel,{ headers });
   }
 
   // Supprimer un personnel par ID
   deletePersonnel(id: number): Observable<void> {
-    return this.httpCLient.delete<void>(`${this.API_URL}${this.ENDPOINT_FICHE}/delete/${id}`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.delete<void>(`${this.API_URL}${this.ENDPOINT_FICHE}/delete/${id}`,  { headers  });
   }
 
   getRoles(): Observable<any>{
-    
-     return this.httpCLient.get(this.API_URL+"/role/all");
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+     return this.httpCLient.get(this.API_URL+"/role/all",  { headers  });
     }
   
   

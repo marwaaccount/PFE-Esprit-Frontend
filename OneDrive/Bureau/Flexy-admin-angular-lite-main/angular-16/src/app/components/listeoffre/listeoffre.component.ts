@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import{OffreService} from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/offre.service'
+import{OffreService} from 'src/app/offre.service'
 import{Offre} from 'src/app/components/offre/offre.model'
 import { Observable } from 'rxjs';
 @Component({

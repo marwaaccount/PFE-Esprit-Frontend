@@ -1,8 +1,8 @@
+import { RejectionModalComponent } from './RejectionModalComponent';
 import { Component, OnInit } from '@angular/core';
 import { AbsenceService } from 'src/app/absence.service';
 import { demandeAbsenceAtt } from './demandeAbsenceAtt.model'; 
 import { MatDialog } from '@angular/material/dialog';
-import { RejectionModalComponent } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/validabsence/RejectionModalComponent';
 @Component({
   selector: 'app-validabsence',
   templateUrl: './validabsence.component.html',

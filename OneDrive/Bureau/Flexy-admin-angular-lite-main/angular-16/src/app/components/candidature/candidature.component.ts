@@ -2,10 +2,11 @@
 import { ChangeDetectorRef, Component, OnInit, Pipe } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { entretien} from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/candidature/entretien.model';
-import { Candidature } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/candidature/candidature.model';
-import{OffreService} from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/offre.service'
-import { CandidatOffreService } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/candidatoffre.service';
+import { entretien} from '../candidature/entretien.model';
+import { Candidature } from '../candidature/candidature.model';
+import{OffreService} from 'src/app/offre.service'
+import { CandidatOffreService } from 'src/app/candidatoffre.service';
+import { jsPDF } from 'jspdf';
 @Component({
   selector: 'app-candidature',
   templateUrl: './candidature.component.html',
@@ -57,26 +58,49 @@ export class CandidatureComponent {
   });
     }
   
-    loadCandidatures(id:number): void {
-      console.log("here the data")
-      this.offreservice.getOffre
-      (this.offreId).subscribe(
-
+    loadCandidatures(id: number): void {
+      console.log("Loading candidatures for offreId:", this.offreId);
+      
+      this.offreservice.getOffre(this.offreId).subscribe(
         (candidatures: Candidature[]) => {
-          console.log("data candidature is")
-          this.candidatures = candidatures; // Assigner le tableau de candidatures
-          console.log(candidatures)
-          console.log(candidatures.length)
+          console.log("Received candidatures:", candidatures);
+          this.candidatures = candidatures; // Assign the array of candidatures
+          
           this.candidatures.forEach(candidature => {
             if (candidature.cv) {
-              const blob = this.base64ToBlob(candidature.cv, 'application/pdf');
-              this.objectURLs[candidature.id] = URL.createObjectURL(blob);
+              // Use a known valid Base64 string for testing
+              const base64String = candidature.cv.includes('base64,') ? 
+                                   candidature.cv.split('base64,')[1] : 
+                                   candidature.cv;
+  
+              try {
+                // Decode the Base64 string
+                const byteCharacters = atob(base64String);
+                const byteNumbers = new Uint8Array(byteCharacters.length);
+  
+                // Convert the string to an array of bytes
+                for (let i = 0; i < byteCharacters.length; i++) {
+                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+  
+                // Create a Blob from the byte array
+                const blob = new Blob([byteNumbers], { type: 'application/pdf' });
+                
+                // Create a URL for the Blob
+                const url = URL.createObjectURL(blob);
+                this.objectURLs[candidature.id] = url; // Store the URL for downloading
+                console.log(`Generated URL for candidature ${candidature.id}:`, url);
+              } catch (error) {
+                console.error(`Error decoding Base64 for candidature ${candidature.id}:`, error);
               }
+            } else {
+              console.warn(`Candidature ${candidature.id} does not have a CV.`);
+            }
           });
         },
         (error) => {
-          console.error('Erreur lors de la récupération des candidatures', error);
-          this.error = 'Erreur lors de la récupération des candidatures.';
+          console.error('Error retrieving candidatures:', error);
+          this.error = 'Error retrieving candidatures.';
         }
       );
     }

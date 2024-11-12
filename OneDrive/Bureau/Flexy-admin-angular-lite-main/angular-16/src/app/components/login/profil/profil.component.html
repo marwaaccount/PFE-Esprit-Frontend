@@ -1,0 +1,53 @@
+<!-- Form Layout -->
+<div class="card">
+    <div class="card-body">
+      <h4 class="mb-32">Gestion de Profil : completer/Modifier votre profil</h4>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('CONDI') || nom.includes('PERS')|| nom.includes('ADMIN') ">
+          <mat-label>Name</mat-label>
+          <input matInput type="text"  placeholder="nom" formControlName="nom" class="form-control">
+        </mat-form-field>
+        <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('CONDI') || !nom.includes('PERS')|| !nom.includes('ADMIN') ">
+        <mat-label>prenom</mat-label>
+        <input matInput type="text"  placeholder="prenom" formControlName="prenom" class="form-control">
+      </mat-form-field>
+        <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('CONDI') || !nom.includes('PERS')|| !nom.includes('ADMIN') ">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="Enter your email" formControlName="email" class="form-control">
+        </mat-form-field>
+        <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>Carte d'identité</mat-label>
+            <input matInput type="number" placeholder="Carte d'identité" formControlName="cin"  class="form-control">
+          </mat-form-field>
+          <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>Adresse</mat-label>
+            <input matInput type="text" placeholder="adresse" formControlName="adresse"  class="form-control">
+          </mat-form-field>
+          <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>Numero de telephone </mat-label>
+            <input matInput type="number" placeholder="Numero de telephone"formControlName="numTelephone" class="form-control">
+          </mat-form-field>
+          <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>enfants a charge </mat-label>
+            <input matInput type="number" placeholder="enfants a charge"formControlName="enfantsacharge"  class="form-control">
+          </mat-form-field>
+
+          <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>grade</mat-label>
+            <input matInput type="text" placeholder="grade"formControlName="grade"  class="form-control">
+          </mat-form-field>
+          <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>cnss</mat-label>
+            <input matInput type="number" placeholder="idcnss"formControlName="idcnss"  class="form-control">
+          </mat-form-field>
+          <mat-form-field class="w-100 fs-16" appearance="outline" *ngIf="nom.includes('PERS')|| nom.includes('ADMIN') ">
+            <mat-label>poste</mat-label>
+            <input matInput type="text" placeholder="poste"formControlName="poste"  class="form-control">
+          </mat-form-field>
+
+  
+        <button mat-button class="btn btn-info fw-normal" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  

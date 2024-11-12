@@ -1,3 +1,5 @@
+<div class="card" *ngIf="isPopupVisible" >
+  <div class="card-body">
 <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
   <mat-card-title>Veuillez introduire vos informations pour postuler à l'offre : {{data.titre}}</mat-card-title>
 
@@ -56,7 +58,7 @@
           class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
           accept=".pdf" (change)="onFileChange($event, 'cv')"
       />
-      <mat-label>CV</mat-label>
+      <mat-label>CV </mat-label>
       <input matInput cdkFocusInitial class="z-0" />
       <mat-icon matSuffix class="mr-2">cloud_upload</mat-icon>
       <mat-error *ngIf="fileErrors.cv">CV requis.</mat-error>
@@ -89,3 +91,5 @@
 
   <button mat-raised-button color="primary" type="submit" [disabled]="applicationForm.invalid">Postuler</button>
 </form>
+  </div>
+</div>

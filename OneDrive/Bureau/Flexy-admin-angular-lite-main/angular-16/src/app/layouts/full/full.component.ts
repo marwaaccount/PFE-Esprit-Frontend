@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 interface sidebarMenu {
   link: string;
@@ -14,111 +15,69 @@ interface sidebarMenu {
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.scss']
 })
-export class FullComponent {
+export class FullComponent implements OnInit{
 
   search: boolean = false;
+  nom!: String;
+  sidebarMenu: sidebarMenu[] = [];
 
+  
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+    this.nom = localStorage.getItem("nom") || ''; // Get the name from localStorage
+    const role  = localStorage.getItem("role");
+    if (role?.includes('ADMIN')) {
+      this.router.navigate(['table']);
+      this.sidebarMenu = [
+        { link: "/table", icon: "grid", menu: "Fiche de paie" },
+        { link: "/expansion", icon: "divide-circle", menu: "Liste des offres" },
+        { link: "/tooltip", icon: "bell", menu: "liste des personnels" },
+        { link: "/snackbar", icon: "slack", menu: "demande de congé" },
+        { link: "/slider", icon: "sliders", menu: "Demande de Congé en attente" }
+      ];
+    } else if (role?.includes('PERS')){
+      this.sidebarMenu = [
+        { link: "/home", icon: "home", menu: "chercher un emplois" },
+        { link: "/table", icon: "grid", menu: "Fiche de paie" },
+        { link: "/expansion", icon: "divide-circle", menu: "Liste des offres" },
+        { link: "/tooltip", icon: "bell", menu: "liste des personnels" },
+        { link: "/snackbar", icon: "slack", menu: "demande de congé" },
+        { link: "/slider", icon: "sliders", menu: "Demande de Congé en attente" }
+      ];
+    }else{
+      this.sidebarMenu = [
+        { link: "/home", icon: "home", menu: "chercher un emplois" }
+      ];
+    }
+   }
+  ngOnInit(): void {
+    this.nom = localStorage.getItem("nom") || ''; // Get the name from localStorage
+
+
+    }
 
   routerActive: string = "activelink";
+  async logout(){
+    await localStorage.clear()
+    await this.router.navigate(['redirTohome']);
+    await location.reload();
 
-  sidebarMenu: sidebarMenu[] = [
-    {
-      link: "/home",
-      icon: "home",
-      menu: "Dashboard",
-    },
-    {
-      link: "/personnels",
-      icon: "home",
-      menu: "Personnels",
-    },
-    {
-      link: "/button",
-      icon: "disc",
-      menu: "Buttons",
-    },
-    {
-      link: "/forms",
-      icon: "layout",
-      menu: "Forms",
-    },
-    {
-      link: "/alerts",
-      icon: "info",
-      menu: "Alerts",
-    },
-    {
-      link: "/grid-list",
-      icon: "file-text",
-      menu: "Grid List",
-    },
-    {
-      link: "/menu",
-      icon: "menu",
-      menu: "Menus",
-    },
-    {
-      link: "/table",
-      icon: "grid",
-      menu: "Tables",
-    },
-    {
-      link: "/expansion",
-      icon: "divide-circle",
-      menu: "Expansion Panel",
-    },
-    {
-      link: "/chips",
-      icon: "award",
-      menu: "Chips",
-    },
-    {
-      link: "/tabs",
-      icon: "list",
-      menu: "Tabs",
-    },
-    {
-      link: "/progress",
-      icon: "bar-chart-2",
-      menu: "Progress Bar",
-    },
-    {
-      link: "/toolbar",
-      icon: "voicemail",
-      menu: "Toolbar",
-    },
-    {
-      link: "/progress-snipper",
-      icon: "loader",
-      menu: "Progress Snipper",
-    },
-    {
-      link: "/tooltip",
-      icon: "bell",
-      menu: "Tooltip",
-    },
-    {
-      link: "/snackbar",
-      icon: "slack",
-      menu: "Snackbar",
-    },
-    {
-      link: "/slider",
-      icon: "sliders",
-      menu: "Slider",
-    },
-    {
-      link: "/slide-toggle",
-      icon: "layers",
-      menu: "Slide Toggle",
-    },
-  ]
+}
+  Account(){
+    this.router.navigate(['profil']);
+
+  }
+  Change(){
+    this.router.navigate(['change']);
+  }
+  Login(){
+    this.router.navigate(['login']);
+
+  }
 
 }

@@ -4,8 +4,9 @@ import { Component, Inject ,OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PopupcandidatService } from 'src/app/popupcandidat.service'; 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms'; 
+import { MatSnackBar } from '@angular/material/snack-bar';
 type FileField = 'cv' | 'lettremotivation';
 @Component({
   selector: 'app-popupcandidat',
@@ -17,7 +18,7 @@ export class PopupcandidatComponent implements OnInit {
 
   applicationForm!: FormGroup;
   id!:number;
-  
+  isPopupVisible: boolean = true;
   files: any = {
     cv: null,
     lettremotivation: null
@@ -30,7 +31,7 @@ export class PopupcandidatComponent implements OnInit {
     lettremotivation: false
   };
 
-  constructor(private route: ActivatedRoute,private fb: FormBuilder, private PopupcandidatService: PopupcandidatService,public dialogRef: MatDialogRef<PopupcandidatComponent>,public dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data: { titre:string, id:number}) { }
+  constructor(private snackBar: MatSnackBar , private router: Router , private route: ActivatedRoute,private fb: FormBuilder, private PopupcandidatService: PopupcandidatService,public dialogRef: MatDialogRef<PopupcandidatComponent>,public dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data: { titre:string, id:number}) { }
     
    
       ngOnInit(): void {
@@ -69,7 +70,7 @@ export class PopupcandidatComponent implements OnInit {
       fileInput(): void {
         
       }
-    onSubmit(): void {
+      async  onSubmit(): Promise<void> {
     const formData = new FormData();
     let valid = true;
 
@@ -100,10 +101,27 @@ export class PopupcandidatComponent implements OnInit {
       formData.append('lettremotivation', this.files.lettremotivation);
 
       this.PopupcandidatService.saveApplication(formData, this.id).subscribe(
-        response => {
+        async response => {
           console.log('Application saved successfully:', response);
+          const role  = localStorage.getItem("role");
+          if (role?.includes('CONDI')){
+            await this.router.navigate(['home']);
+            this.isPopupVisible = false;
+            this.snackBar.open(`Votre condidature avec succes`, 'Fermer', {
+              duration: 3000, // Durée en millisecondes
+            });
+          }else{
+            await this.router.navigate(['expansion']);
+            this.isPopupVisible = false;
+          }
+
+          window.location.reload();
         },
-        error => {
+        async error => {
+          this.snackBar.open(`Merci de vous conncter a l'application`, 'Fermer', {
+            duration: 3000, // Durée en millisecondes
+          }); 
+          await this.router.navigate(['login']);
           console.error('Error saving application:', error);
         }
       );

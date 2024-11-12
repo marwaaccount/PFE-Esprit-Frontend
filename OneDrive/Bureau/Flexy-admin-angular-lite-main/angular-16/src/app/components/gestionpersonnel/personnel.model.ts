@@ -13,7 +13,6 @@ export interface Personnel {
     idcnss: number;
     cin: number;
     enfantsacharge: number; // Type modifié pour correspondre au type Java
-    categorie: string;
-    role?: Role;
-  }
+    categorie?: string;
+    }
   

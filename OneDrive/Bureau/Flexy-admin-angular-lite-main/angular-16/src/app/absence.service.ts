@@ -1,8 +1,8 @@
 import { HttpClient,HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { demandeAbscence } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/gestionabsence/demandeAbscence.model';
-import { demandeAbsenceAtt } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/validabsence/demandeAbsenceAtt.model';
+import { demandeAbscence } from './components/gestionabsence/demandeAbscence.model';
+import { demandeAbsenceAtt } from './validabsence/demandeAbsenceAtt.model';
 
 
 @Injectable({
@@ -10,51 +10,103 @@ import { demandeAbsenceAtt } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-an
 })
 export class AbsenceService {
 
-  readonly API_URL="http://localhost:8080"
+  readonly API_URL="http://localhost:8082"
   readonly ENDPOINT_FICHE="absence"
 
   constructor(private httpCLient :HttpClient) { }
   getSoldeConge(id:number){
-    return this.httpCLient.get(`${this.API_URL}/${this.ENDPOINT_FICHE}/${id}`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get(`${this.API_URL}/${this.ENDPOINT_FICHE}/${id}`, { headers });
   }
  
 
  addRequest(id: number, request: any): Observable<any> {
-  return this.httpCLient.post(`${this.API_URL}/${this.ENDPOINT_FICHE}/add/${id}`, request, {
-      headers: { 'Content-Type': 'application/json' }
-  });
+  const headers = new HttpHeaders();
+  const token = localStorage.getItem('Authorization');
+  headers.append('Access-Control-Allow-Origin', '*');
+  headers.append('Access-Control-Allow-Credentials', 'true');
+  headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', `${token}`);
+  return this.httpCLient.post(`${this.API_URL}/${this.ENDPOINT_FICHE}/add/${id}`, request, { headers });
 }
 
 
    // Fetch all leave requests for a user
    getAllRequests():Observable<demandeAbscence[]> {
-    return this.httpCLient.get<demandeAbscence[]>(`${this.API_URL}/${this.ENDPOINT_FICHE}/all`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get<demandeAbscence[]>(`${this.API_URL}/${this.ENDPOINT_FICHE}/all`, { headers });
   }
 
   // Update a leave request
   updateRequest(requestId: number, request: demandeAbscence): Observable<demandeAbscence> {
-    return this.httpCLient.put<demandeAbscence>(`${this.API_URL}/${this.ENDPOINT_FICHE}/modif/${requestId}`, request);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.put<demandeAbscence>(`${this.API_URL}/${this.ENDPOINT_FICHE}/modif/${requestId}`, request, { headers });
   }
 
   // Delete a leave request
   deleteRequest(requestId: number) {
-    return this.httpCLient.delete(`${this.API_URL}/${this.ENDPOINT_FICHE}/delete/${requestId}`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.delete(`${this.API_URL}/${this.ENDPOINT_FICHE}/delete/${requestId}`, { headers });
   }
 
   getAttenteRequests():Observable<demandeAbsenceAtt[]> {
-    return this.httpCLient.get<demandeAbsenceAtt[]>(`${this.API_URL}/${this.ENDPOINT_FICHE}/allattente`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get<demandeAbsenceAtt[]>(`${this.API_URL}/${this.ENDPOINT_FICHE}/allattente`, { headers });
   }
 
 
   approveAbsence(id: number, nb: number): Observable<any> {
-    return this.httpCLient.put(`${this.API_URL}/absence/${id}/approuver`, { id, nb });
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.put(`${this.API_URL}/absence/${id}/approuver`, { id, nb }, { headers });
   }
 
   rejectAbsence(id: number, motif: string): Observable<any> {
-    return this.httpCLient.put(`${this.API_URL}/absence/${id}/rejeter`, { id, motif });
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.put(`${this.API_URL}/absence/${id}/rejeter`, { id, motif }, { headers });
   }
   getByid(id:number){
-   return this.httpCLient.get(`${this.API_URL}/absence/getpersonnelById/${id}`);
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+   return this.httpCLient.get(`${this.API_URL}/absence/getpersonnelById/${id}`, { headers });
   }
 
   

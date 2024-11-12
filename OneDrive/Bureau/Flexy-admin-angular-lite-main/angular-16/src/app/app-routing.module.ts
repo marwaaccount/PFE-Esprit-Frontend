@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertsComponent } from './components/alerts/alerts.component';
@@ -21,46 +22,47 @@ import { FullComponent } from './layouts/full/full.component';
 import { ListeficheComponent } from './components/listefiche/listefiche.component';
 import { OffreComponent } from './components/offre/offre.component';
 import { ListeoffreComponent } from './components/listeoffre/listeoffre.component';
-//import { PersonnelComponent } from './personnel/personnel.component';
 import { ListeoffreCandidatComponent } from './components/listeoffre-candidat/listeoffre-candidat.component';
 import { PopupcandidatComponent } from './components/popupcandidat/popupcandidat.component';
 import { CandidatureComponent } from './components/candidature/candidature.component';
-import { GestionabsenceComponent } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/gestionabsence/gestionabsence.component';
+import { GestionabsenceComponent } from './components/gestionabsence/gestionabsence.component';
 import { ValidabsenceComponent } from './validabsence/validabsence.component';
-import { GestionpersonnelComponent } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/gestionpersonnel/gestionpersonnel.component';
-
+import { GestionpersonnelComponent } from './components/gestionpersonnel/gestionpersonnel.component';
+import { ProfilComponent } from './components/login/profil/profil.component';
+import { ModifPasswordComponent } from './components/login/modif-password/modif-password.component';
 
 const routes: Routes = [
+  { path: 'redirTohome', redirectTo: 'home', pathMatch: 'full' },
   {
-    path:"",
-    component:FullComponent,
+    path: '',
+    component: FullComponent,
     children: [
-      {path:"", redirectTo:"", pathMatch:"full"},
-      {path:"home", component:ListeoffreCandidatComponent},
-      {path:"alerts", component:AlertsComponent},
-      {path:"offres/:offerId/:mode", component:OffreComponent},
-      {path:"table", component:ProductComponent},
-      {path:"liste-fiches/:cin/:id", component:ListeficheComponent},
-      //{path:"personnels", component:PersonnelComponent},
-      {path:"grid-list", component:GridListComponent},
-      {path:"menu", component:MenuComponent},
-      {path:"tabs", component:TabsComponent},
-      {path:"expansion", component:ListeoffreComponent},
-      {path:"chips", component:ChipsComponent},
-      {path:"progress", component:ProgressComponent},
-      {path:"toolbar", component:ToolbarComponent},
-      {path:"progress-snipper", component:ProgressSnipperComponent},
-      {path:"snackbar", component: GestionabsenceComponent},
-      {path:"slider", component:ValidabsenceComponent},
-      {path:"slide-toggle", component:SlideToggleComponent},
-      {path:"tooltip", component:GestionpersonnelComponent},
-      {path:"button", component:ButtonsComponent},
-      {path: 'candidatures/:id', component: CandidatureComponent },
+      { path: 'home', component: ListeoffreCandidatComponent }, // Default route to home
+      { path: 'login', component: LoginComponent },
+      { path: 'alerts', component: AlertsComponent },
+      { path: 'offres/:offerId/:mode', component: OffreComponent },
+      { path: 'table', component: ProductComponent },
+      { path: 'liste-fiches/:cin/:id', component: ListeficheComponent },
+      { path: 'grid-list', component: GridListComponent },
+      { path: 'menu', component: MenuComponent },
+      { path: 'tabs', component: TabsComponent },
+      { path: 'expansion', component: ListeoffreComponent },
+      { path: 'chips', component: ChipsComponent },
+      { path: 'progress', component: ProgressComponent },
+      { path: 'toolbar', component: ToolbarComponent },
+      { path: 'progress-snipper', component: ProgressSnipperComponent },
+      { path: 'snackbar', component: GestionabsenceComponent },
+      { path: 'slider', component: ValidabsenceComponent },
+      { path: 'slide-toggle', component: SlideToggleComponent },
+      { path: 'tooltip', component: GestionpersonnelComponent },
+      { path: 'button', component: ButtonsComponent },
+      { path: 'candidatures/:id', component: CandidatureComponent },
+       { path: 'profil', component: ProfilComponent },
+       { path: 'change', component:  ModifPasswordComponent}
+      // { path: 'candidatures/:id', component: CandidatureComponent }
     ]
   },
-
-  {path:"", redirectTo:"/home", pathMatch:"full"},
-  {path:"**", redirectTo:"/home", pathMatch:"full"},
+  { path: '**', redirectTo: 'redirTohome' } // Redirect unknown paths to login
 ];
 
 @NgModule({

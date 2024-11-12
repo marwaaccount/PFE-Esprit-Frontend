@@ -11,7 +11,7 @@ import { TabsComponent } from './tabs/tabs.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { ChipsComponent } from './chips/chips.component';
 import { ProgressComponent } from './progress/progress.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProgressSnipperComponent } from './progress-snipper/progress-snipper.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
@@ -20,7 +20,10 @@ import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 import { ListeficheComponent } from './listefiche/listefiche.component';
-import { PopupComponent } from './popup/popup.component'
+import { PopupComponent } from './popup/popup.component';
+import { LoginComponent } from './login/login/login.component';
+import { ProfilComponent } from './login/profil/profil.component';
+import { ModifPasswordComponent } from './login/modif-password/modif-password.component';
 
 
 @NgModule({
@@ -43,7 +46,8 @@ import { PopupComponent } from './popup/popup.component'
     AlertsComponent,
     GridListComponent,
     TooltipsComponent,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     AlertsComponent,
@@ -64,7 +68,9 @@ import { PopupComponent } from './popup/popup.component'
   declarations: [
     
     ListeficheComponent,
-    
+          LoginComponent,
+          ModifPasswordComponent
+              
   ]
 })
 export class ComponentsModule { }

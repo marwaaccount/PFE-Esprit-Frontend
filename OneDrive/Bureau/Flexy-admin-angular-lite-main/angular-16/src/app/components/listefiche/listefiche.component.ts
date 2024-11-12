@@ -1,10 +1,10 @@
 import jsPDF from 'jspdf';
 import { Component, OnInit } from '@angular/core';
-import{FicheService} from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/fiche.service'
+import{FicheService} from 'src/app/fiche.service'
 import { ActivatedRoute } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupComponent } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/popup/popup.component';
+import { PopupComponent } from '../popup/popup.component';
 
 
 
@@ -142,7 +142,7 @@ export class ListeficheComponent  implements OnInit {
             // Gérer les erreurs si nécessaire
           }
         );
-      }
+      } 
     });
   }
   openPopup(userId: string,mode: 'add',name:String): void {

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import{OffreService} from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/offre.service'
-import{Offre} from 'src/app/components/offre/offre.model'
+import { OffreService } from 'src/app/offre.service'; // Adjust the path based on your actual structure
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupcandidatComponent } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/popupcandidat/popupcandidat.component';
+import { PopupcandidatComponent } from '../popupcandidat/popupcandidat.component';
+import { Offre } from '../offre/offre.model';
 
 @Component({
   selector: 'app-listeoffre-candidat',
@@ -69,6 +69,7 @@ export class ListeoffreCandidatComponent {
       
     });
     this.router.navigate(['/popup', id]);
+    this.router.navigate(['redirTohome']);
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       // Logique après la fermeture du dialogue si nécessaire

@@ -20,17 +20,22 @@ export interface CandidatOffre {
 })
 export class CandidatOffreService {
 
-  private apiUrl = 'http://localhost:8080'; // Adjust to your backend URL
+  private apiUrl = 'http://localhost:8082'; // Adjust to your backend URL
   readonly ENDPOINT_FICHE="/candidatoffre"
 
   constructor(private http: HttpClient) { }
 
   // Method to approve a candidature
   approuver(OfferId: number, candidatId: number,entretien: Entretien): Observable<Entretien> {
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
     const url = `${this.apiUrl}${this.ENDPOINT_FICHE}/approuver/${OfferId}/${candidatId}`;
-    return this.http.post<Entretien>(url, entretien, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }).pipe(
+    return this.http.post<Entretien>(url, entretien,  { headers })
+    .pipe(
       map(response => response),
       catchError(this.handleError<Entretien>('approuver'))
     );
@@ -38,10 +43,14 @@ export class CandidatOffreService {
 
   // Method to reject a candidature
   rejeter(id: number,candidatId: number): Observable<CandidatOffre> {
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
     const url = `${this.apiUrl}${this.ENDPOINT_FICHE}/rejeter/${id}/${candidatId}`;
-    return this.http.post<CandidatOffre>(url, {}, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }).pipe(
+    return this.http.post<CandidatOffre>(url, {},{ headers }).pipe(
       map(response => response),
       catchError(this.handleError<CandidatOffre>('rejeter'))
     );
@@ -57,6 +66,12 @@ export class CandidatOffreService {
 
 
   sendEmail(action: string, candidatId: number, interviewDate: string, interviewLocation: string): Observable<void> {
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
     const url = `${this.apiUrl}${this.ENDPOINT_FICHE}/sendEmail`;
     const body = {
       action: action,
@@ -64,6 +79,6 @@ export class CandidatOffreService {
       interviewDate: interviewDate,
       interviewLocation: interviewLocation
     };
-    return this.http.post<void>(url, body); // Envoie une requête POST sans corps
+    return this.http.post<void>(url, body,  { headers }); // Envoie une requête POST sans corps
   }
 }

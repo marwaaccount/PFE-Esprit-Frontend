@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Body Content</title>
+</head>
+<body>
+    <section class="wrapper" [class.active]="isLoginActive">
+        <div class="form signup">
+            <header (click)="toggleSignup()">Signup</header>
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+                <input type="text" placeholder="name" formControlName="name" class="form-control" />
+                <input type="text" placeholder="Email address" formControlName="username" class="form-control"/>
+                <input type="password" placeholder="password" formControlName="password" class="form-control" />
+                <mat-radio-group [(ngModel)]="favorite" formControlName="personne" class="form-control">
+                        <mat-radio-button value="PERS">Personnel</mat-radio-button>
+                        <mat-radio-button value="condidat">Condidat</mat-radio-button>
+                      </mat-radio-group>
+                <input type="submit" value="Signup" />
+            </form>
+    </div>
+        <div class="form login">
+            <header (click)="toggleLogin()">Login</header>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <input type="text" placeholder="Email address" formControlName="username" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+                <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                    <div *ngIf="f['username'].errors['required']">Username is required</div>
+                    <div *ngIf="f['username'].errors['username']">Username must be a valid email address</div>
+                </div>
+                <input type="password" placeholder="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Password is required</div>
+                    <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+                </div>              
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    </section>
+    <footer class="new_footer_area bg_color">
+        <div class="new_footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                            <h5 class="f-title f_600 t_color f_size_18">rejoindre a nous !</h5>
+                            <form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+                                <p class="mchimp-errmessage" style="display: none;"></p>
+                                <p class="mchimp-sucmessage" style="display: none;"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bg">
+                <div class="footer_bg_one"></div>
+                <div class="footer_bg_two"></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

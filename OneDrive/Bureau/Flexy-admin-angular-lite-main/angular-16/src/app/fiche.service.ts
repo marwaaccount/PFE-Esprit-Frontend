@@ -10,7 +10,7 @@ import { Fiche } from './fiche/fiche.model';
 })
 export class FicheService {
 
-  readonly API_URL="http://localhost:8080"
+  readonly API_URL="http://localhost:8082"
   readonly ENDPOINT_FICHE="/fiche"
 
   constructor(private httpCLient :HttpClient) { }
@@ -25,7 +25,13 @@ export class FicheService {
   }
 
   listeficheparPersonnel(cin:number){
-    return this.httpCLient.get(`${this.API_URL}${this.ENDPOINT_FICHE}/allparpersonne/${cin}`)
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get(`${this.API_URL}${this.ENDPOINT_FICHE}/allparpersonne/${cin}`, { headers })
   }
 
   addFiche(id:number,fiche: Fiche): Observable<Fiche> {
@@ -49,7 +55,13 @@ export class FicheService {
   }
  
   findName(cin: number): Observable<string> {
-    return this.httpCLient.get<string>(`http://localhost:8080/personnel/bycin/${cin}`, { responseType: 'text' as 'json' });
+    const headers = new HttpHeaders();
+    const token = localStorage.getItem('Authorization');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+    headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', `${token}`);
+    return this.httpCLient.get<string>(`http://localhost:8082/personnel/bycin/${cin}`,{ headers });
 }
    
   

@@ -28,7 +28,7 @@ export class OffreComponent implements OnInit {
   mode: any;
   textMode:  any;
   offerId: any;
-
+  offres$: Observable<Offre[]> | undefined;
   dateFinValidator(control: any) {
     if (!this.offreForm) {
       return null;
@@ -131,7 +131,8 @@ export class OffreComponent implements OnInit {
   }else{
     this.ajoutOffre();
   }
-  this._router.navigate(['/expansion']);
+  this.offres$ = this.offreservice.getoffres();
+  this._router.navigate(['redirTohome']);
   }
 
   modifOffre(): void {

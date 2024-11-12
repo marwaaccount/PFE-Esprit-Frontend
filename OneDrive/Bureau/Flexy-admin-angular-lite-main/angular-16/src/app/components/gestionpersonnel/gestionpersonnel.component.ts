@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PersonnelService } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/personnel.service';
+import { PersonnelService } from 'src/app/personnel.service';
 import { Personnel } from './personnel.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Role } from './role.model';
@@ -14,7 +14,6 @@ export class GestionpersonnelComponent {
   personnels: Personnel[] = [];
   selectedPersonnel: Personnel | null = null;
   personnelForm: FormGroup;
-  roles: Role[] = [];
   isFormVisible: boolean = false;
 // Méthode pour réinitialiser selectedPersonnel
 resetSelectedPersonnel() {
@@ -29,28 +28,24 @@ resetSelectedPersonnel() {
     idcnss: 0,
     cin: 0,
     enfantsacharge: 0,
-    categorie: '',
-    role: { id: null, description: '' } 
-    
+    categorie: ''    
   };this.personnelForm.reset();
   //this.isFormVisible = true;
 }
 
 constructor(private personnelService: PersonnelService,private fb: FormBuilder,private snackBar: MatSnackBar) {
   this.personnelForm = this.fb.group({
-    nom: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-    prenom: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-    adresse: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    numTelephone: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+    nom: ['', [ Validators.pattern(/^[a-zA-Z\s]+$/)]],
+    prenom: ['', [ Validators.pattern(/^[a-zA-Z\s]+$/)]],
+    adresse: [''],
+    email: ['', [ Validators.email]],
+    numTelephone: ['', [ Validators.pattern(/^\d{8}$/)]],
     poste: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-    idcnss: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-    cin: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+    idcnss: ['', [ Validators.pattern(/^\d{10}$/)]],
+    cin: ['', [ Validators.pattern(/^\d{8}$/)]],
     enfantsacharge: ['', [Validators.required, Validators.min(0)]],
     grade: ['', Validators.required],
-    categorie: ['', Validators.required],
-    role: ['', Validators.required],
-    //soldeconge: [{ value: 30, disabled: true }, [Validators.required]],
+    categorie: ['', Validators.required]    //soldeconge: [{ value: 30, disabled: true }, [Validators.required]],
   });
 }
 
@@ -81,20 +76,21 @@ onSubmit(): void {
     // Prepare the personnel data, wrapping the role in an object
     const personnelData: Personnel = {
       ...this.selectedPersonnel,
-      ...this.personnelForm.value,
-      role: { id: this.personnelForm.get('role')?.value }  // Wrap the role ID in an object
+      ...this.personnelForm.value
     };
 
     if (this.selectedPersonnel?.id) {
       // Si un personnel est sélectionné, mettez à jour
       this.updatePersonnel(personnelData);
       this.showSuccessMessage('modifié');
-      this.getPersonnels()
+      this.getPersonnels();
+    //  window.location.reload();
     } else {
       // Sinon, ajoutez un nouveau personnel
       this.addPersonnel(personnelData);
       this.showSuccessMessage('ajouté');
-      this.getPersonnels()
+      this.getPersonnels();
+      //window.location.reload();
     }
   } else {
     this.checkFormErrors();
@@ -103,9 +99,15 @@ onSubmit(): void {
 
 
   ngOnInit(): void {
-    this.getPersonnels();
+    const role  = localStorage.getItem("role");
+    if (role?.includes('ADMIN')) {
+      this.getPersonnels();
+
+    }
+    else{
+      this.getPersonnelsbyId();
+    }
     this.resetSelectedPersonnel();
-    this.getRoles();
     console.log(this.personnelForm.value); // Vérifiez les valeurs
     console.log(this.personnelForm); 
   }
@@ -117,10 +119,10 @@ onSubmit(): void {
     });
   }
 
-  getRoles(): void {
-    this.personnelService.getRoles().subscribe(data => {
-      this.roles = data;
-      console.log('Rôles récupérés :', this.roles);
+  getPersonnelsbyId(): void {
+    this.personnelService.getpersonnelbyId().subscribe(data => {
+      this.personnels = data;
+      console.log(data)
     });
   }
 
@@ -156,17 +158,17 @@ onSubmit(): void {
   editPersonnel(personnel: Personnel): void {
     this.selectedPersonnel = { ...personnel }; // Create a copy of the object
     this.personnelForm.patchValue({
-      ...this.selectedPersonnel,
-      role: personnel.role?.id // Set the role based on the selected personnel
-    });
+      ...this.selectedPersonnel    });
     //this.isFormVisible = true;
   }
   
 
-  updatePersonnel(personnel: Personnel): void {
+  async updatePersonnel(personnel: Personnel): Promise<void> {
     if (personnel.id) {
       console.log("Données à mettre à jour :", personnel);
-      this.personnelService.updatePersonnel(personnel.id, personnel).subscribe(() => {
+      await this.personnelService.updatePersonnel(personnel.id, personnel).subscribe(() => {
+        console.log("Données à envoyer :", personnel); // Affiche les données à envoyer
+
         this.getPersonnels();
         this.resetSelectedPersonnel(); // Réinitialise la sélection
         this.personnelForm.reset();

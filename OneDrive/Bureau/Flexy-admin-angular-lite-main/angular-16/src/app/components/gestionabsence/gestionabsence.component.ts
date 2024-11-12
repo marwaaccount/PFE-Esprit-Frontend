@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbsenceService } from 'src/app/absence.service';
-import { demandeAbscence } from 'C:/Users/hamza/OneDrive/Bureau/Flexy-admin-angular-lite-main/angular-16/src/app/components/gestionabsence/demandeAbscence.model';
+import { demandeAbscence } from '../gestionabsence/demandeAbscence.model';
 
 @Component({
   selector: 'app-gestionabsence',
@@ -24,6 +24,7 @@ export class GestionabsenceComponent {
   successMessage: string | null = null;
   datasource:demandeAbscence[] = [];
   selectedRequestId: number | null = null; // Ajoutez ceci au début de votre classe
+   idUser  =  Number(localStorage.getItem("idUser"));
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar,private route: ActivatedRoute,private router: Router,private abscenceservice :AbsenceService) {
     this.demandeCongeForm = this.fb.group({
@@ -34,7 +35,8 @@ export class GestionabsenceComponent {
     },{ validator: this.dateValidator.bind(this) });
   }
   ngOnInit(): void {
-    this.abscenceservice.getSoldeConge(6).subscribe(
+
+    this.abscenceservice.getSoldeConge(this.idUser).subscribe(
       (response) => {
        
          console.log(response);
@@ -77,10 +79,10 @@ export class GestionabsenceComponent {
           console.log(demande);
         } else {
           // Sinon, créer une nouvelle demande
-          this.abscenceservice.addRequest(6, demande).subscribe(
+          this.abscenceservice.addRequest(this.idUser, demande).subscribe(
             (response) => {
               console.log(demande);
-              console.log('Demande de congé soumise :', demande);
+              alert('Demande de congé soumise :'+ demande);
               this.openSnackBar('Demande de congé soumise avec succès !', 'Fermer');
               this.fetchLeaveRequests();
               this.resetForm();
@@ -88,7 +90,7 @@ export class GestionabsenceComponent {
             (error) => {
               this.errorMessage = 'Erreur lors de la création de la demande.';
               this.successMessage = null;
-              console.error('Erreur lors de la création de la demande:', error);
+              alert('Erreur lors de la création de la demande:'+ error);
             }
           );
         }
@@ -191,12 +193,12 @@ export class GestionabsenceComponent {
         const diffTime = Math.abs(dateFin.getTime() - dateDebut.getTime());
         this.periode = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert to days
   
-        console.log(`La période entre les deux dates est de ${this.periode} jours.`);
+        alert(`La période entre les deux dates est de ${this.periode} jours.`);
       } else {
-        console.error("Erreur lors de la conversion des dates.");
+        alert("Erreur lors de la conversion des dates.");
       }
     } else {
-      console.warn("Les dates ne doivent pas être vides.");
+      alert("Les dates ne doivent pas être vides.");
     }
   }
   
