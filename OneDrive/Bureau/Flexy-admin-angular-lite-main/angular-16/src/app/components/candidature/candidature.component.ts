@@ -14,6 +14,7 @@ import { jsPDF } from 'jspdf';
 })
 export class CandidatureComponent {
   offreId!: number;
+  conditId!: number;
   candidatures: Candidature[] = []; 
   titreOffre:string='';
   error: string | null = null; // 
@@ -215,9 +216,10 @@ export class CandidatureComponent {
     );
    
   }
-  openApproveModal(candidature: any) {
+  openApproveModal(candidature: any,candidatId:number) {
     this.selectedCandidature = candidature;
     this.showApproveModal = true;
+    this.conditId = candidatId;
   }
 
   // Method to close the approval modal

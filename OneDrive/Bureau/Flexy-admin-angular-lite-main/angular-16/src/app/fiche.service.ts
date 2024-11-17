@@ -24,6 +24,8 @@ export class FicheService {
     return this.httpCLient.get(`${this.API_URL}/${this.ENDPOINT_FICHE}/calculsalaire/${id}`);
   }
 
+  
+  
   listeficheparPersonnel(cin:number){
     const headers = new HttpHeaders();
     const token = localStorage.getItem('Authorization');

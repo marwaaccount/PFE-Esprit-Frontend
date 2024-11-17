@@ -1,0 +1,347 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh; /* Ensure the body takes full height */
+  display: flex; /* Use flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  background: #f0faff; /* Background color */
+}
+
+.wrapper {
+  position: relative;
+  max-width: 470px; /* Set a maximum width */
+  width: 100%; /* Full width */
+  border-radius: 12px; /* Rounded corners */
+  padding: 20px 30px 120px; /* Padding for the wrapper */
+  background: #be50d1; /* Background color */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  overflow: hidden; /* Hide overflow */
+}
+
+.form {
+  position: relative; /* Position relative for forms */
+}
+
+.form.login {
+  position: absolute;
+  left: 50%;
+  bottom: -86%;
+  transform: translateX(-50%); /* Center horizontally */
+  width: calc(100% + 220px); /* Adjust width for animation */
+  padding: 20px 140px; /* Padding for form */
+  border-radius: 50%; /* Rounded corners */
+  height: 100%; /* Full height */
+  background: #fff; /* Form background */
+  transition: all 0.6s ease; /* Smooth transition */
+}
+
+.wrapper.active .form.login {
+  bottom: -15%; /* Adjust position when active */
+  border-radius: 35%; /* Change border radius */
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1); /* Shadow on active */
+}
+
+.form header {
+  font-size: 30px; /* Header font size */
+  text-align: center; /* Center text */
+  color: #fff; /* Header color */
+  font-weight: 600; /* Header font weight */
+  cursor: pointer; /* Pointer on hover */
+}
+
+.form.login header {
+  color: #333; /* Change header color */
+  opacity: 0.6; /* Initial opacity */
+}
+
+.wrapper.active .form.login header {
+  opacity: 1; /* Full opacity when active */
+}
+
+ .wrapper.active .signup header {
+  opacity: 0.6; /* Opacity for signup header */
+}
+
+.wrapper form {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  gap: 20px; /* Space between form elements */
+  margin-top: 40px; /* Space above form */
+}
+
+form input {
+  height: 60px; /* Input height */
+  outline: none; /* Remove outline */
+  border: none; /* Remove border */
+  padding: 0 15px; /* Padding for inputs */
+  font-size: 16px; /* Input font size */
+  font-weight: 400; /* Input font weight */
+  color: #333; /* Input text color */
+  border-radius: 8px; /* Rounded corners for inputs */
+  background: #fff; /* Input background */
+}
+
+.form.login input {
+  border: 1px solid #aaa; /* Border for login inputs */
+}
+
+.form.login input:focus {
+  box-shadow: 0 1px 0 #ddd; /* Shadow on focus */
+}
+
+form .checkbox {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center vertically */
+  gap: 10px; /* Space between checkbox and label */
+}
+
+.checkbox input[type="checkbox"] {
+  height: 16px; /* Checkbox size */
+  width: 16px; /* Checkbox size */
+  accent-color: #fff; /* Checkbox color */
+  cursor: pointer; /* Pointer on hover */
+}
+
+form .checkbox label {
+  cursor: pointer; /* Pointer on hover */
+  color: #fff; /* Label color */
+}
+
+form a {
+  color: #333; /* Link color */
+  text-decoration: none; /* No underline */
+}
+
+form a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+form input[type="submit"] {
+  margin-top: 15px; /* Space above submit button */
+  padding: none; /* No padding */
+  font-size: 18px; /* Submit button font size */
+  font-weight: 500; /* Submit button font weight */
+  cursor: pointer; /* Pointer on hover */
+}
+
+.form.login input[type="submit"] {
+  background: #4070f4; /* Submit button background */
+  color: #fff; /* Submit button text color */
+  border: none; /* No border */
+}
+
+body {
+  background: #fbfbfd;
+}
+
+.new_footer_area {
+  background: #fbfbfd;
+}
+
+
+.new_footer_top {
+  padding: 120px 0px 270px;
+  position: relative;
+    overflow-x: hidden;
+}
+.new_footer_area .footer_bottom {
+  padding-top: 5px;
+  padding-bottom: 50px;
+}
+.footer_bottom {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
+  color: #7f88a6;
+  padding: 27px 0px;
+}
+.new_footer_top .company_widget p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 28px;
+  color: #6a7695;
+  margin-bottom: 20px;
+}
+.new_footer_top .company_widget .f_subscribe_two .btn_get {
+  border-width: 1px;
+  margin-top: 20px;
+}
+.btn_get_two:hover {
+  background: transparent;
+  color: #5e2ced;
+}
+.btn_get:hover {
+  color: #fff;
+  background: #6754e2;
+  border-color: #6754e2;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+
+
+.new_footer_top .f_widget.about-widget .f_list li a:hover {
+  color: #5e2ced;
+}
+.new_footer_top .f_widget.about-widget .f_list li {
+  margin-bottom: 11px;
+}
+.f_widget.about-widget .f_list li:last-child {
+  margin-bottom: 0px;
+}
+.f_widget.about-widget .f_list li {
+  margin-bottom: 15px;
+}
+.f_widget.about-widget .f_list {
+  margin-bottom: 0px;
+}
+.new_footer_top .f_social_icon a {
+  width: 44px;
+  height: 44px;
+  line-height: 43px;
+  background: transparent;
+  border: 1px solid #e2e2eb;
+  font-size: 24px;
+}
+.f_social_icon a {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 45px;
+  color: #858da8;
+  display: inline-block;
+  background: #ebeef5;
+  text-align: center;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.ti-facebook:before {
+  content: "\e741";
+}
+.ti-twitter-alt:before {
+  content: "\e74b";
+}
+.ti-vimeo-alt:before {
+  content: "\e74a";
+}
+.ti-pinterest:before {
+  content: "\e731";
+}
+
+.btn_get_two {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: #5e2ced;
+  border-color: #5e2ced;
+  color: #fff;
+}
+
+.btn_get_two:hover {
+  background: transparent;
+  color: #5e2ced;
+}
+
+.new_footer_top .f_social_icon a:hover {
+  background: #5e2ced;
+  border-color: #5e2ced;
+color:rgb(168, 233, 230);
+}
+.new_footer_top .f_social_icon a + a {
+  margin-left: 4px;
+}
+.new_footer_top .f-title {
+  margin-bottom: 30px;
+  color: #263b5e;
+}
+.f_600 {
+  font-weight: 600;
+}
+.f_size_18 {
+  font-size: 18px;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #4b505e;
+}
+.new_footer_top .f_widget.about-widget .f_list li a {
+  color: #6a7695;
+}
+
+
+.new_footer_top .footer_bg {
+  position: absolute;
+  bottom: 0;
+  background: url("http://droitthemes.com/html/saasland/img/seo/footer_bg.png") no-repeat scroll center 0;
+  width: 100%;
+  height: 266px;
+}
+
+.new_footer_top .footer_bg .footer_bg_one {
+  background: url("https://1.bp.blogspot.com/-mvKUJFGEc-k/XclCOUSvCnI/AAAAAAAAUAE/jnBSf6Fe5_8tjjlKrunLBXwceSNvPcp3wCLcBGAsYHQ/s1600/volks.gif") no-repeat center center;
+  width: 330px;
+  height: 105px;
+background-size:100%;
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  -webkit-animation: myfirst 22s linear infinite;
+  animation: myfirst 22s linear infinite;
+}
+
+.new_footer_top .footer_bg .footer_bg_two {
+  background: url("https://1.bp.blogspot.com/-hjgfxUW1o1g/Xck--XOdlxI/AAAAAAAAT_4/JWYFJl83usgRFMvRfoKkSDGd--_Sv04UQCLcBGAsYHQ/s1600/cyclist.gif") no-repeat center center;
+  width: 88px;
+  height: 100px;
+background-size:100%;
+  bottom: 0;
+  left: 50%;
+  position: absolute;
+  -webkit-animation: myfirst 30s linear infinite;
+  animation: myfirst 30s linear infinite;
+}
+
+
+
+@-moz-keyframes myfirst {
+0% {
+  left: -25%;
+}
+100% {
+  left: 100%;
+}
+}
+
+@-webkit-keyframes myfirst {
+0% {
+  left: -25%;
+}
+100% {
+  left: 100%;
+}
+}
+
+@keyframes myfirst {
+0% {
+  left: -25%;
+}
+100% {
+  left: 100%;
+}
+}
+
+/*************footer End*****************/
+

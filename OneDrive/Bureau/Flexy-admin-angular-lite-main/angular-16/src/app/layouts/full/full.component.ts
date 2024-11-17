@@ -45,7 +45,6 @@ export class FullComponent implements OnInit{
         { link: "/home", icon: "home", menu: "chercher un emplois" },
         { link: "/table", icon: "grid", menu: "Fiche de paie" },
         { link: "/expansion", icon: "divide-circle", menu: "Liste des offres" },
-        { link: "/tooltip", icon: "bell", menu: "liste des personnels" },
         { link: "/snackbar", icon: "slack", menu: "demande de congé" },
         { link: "/slider", icon: "sliders", menu: "Demande de Congé en attente" }
       ];
@@ -76,7 +75,7 @@ export class FullComponent implements OnInit{
     this.router.navigate(['change']);
   }
   Login(){
-    this.router.navigate(['login']);
+    this.router.navigate(['logincondi']);
 
   }
 

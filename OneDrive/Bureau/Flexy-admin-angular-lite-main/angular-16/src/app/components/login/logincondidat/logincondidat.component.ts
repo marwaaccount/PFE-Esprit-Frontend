@@ -1,19 +1,17 @@
-import { DatePipe } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
 import { Registrationrequest } from '../../models/Registrationrequest';
 import { UserService } from '../../services/user.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-logincondidat',
+  templateUrl: './logincondidat.component.html',
+  styleUrls: ['./logincondidat.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LogincondidatComponent {
   isLoginActive: boolean = false;
   loginForm: FormGroup;
   registerForm:FormGroup;
@@ -56,20 +54,16 @@ export class LoginComponent implements OnInit {
 
     const dataregister = this.registerForm.value;
     let registrationrequest;
-      registrationrequest = new Registrationrequest(dataregister.name,dataregister.username,dataregister.password,"ROLE_PERS");
-    //const RoleUser = 'ROLE_USER';
+      registrationrequest = new Registrationrequest(dataregister.name,dataregister.username,dataregister.password,"ROLE_CONDI");
     console.log(registrationrequest);
       await this.userservice.postUser(registrationrequest).subscribe(
       res => {
         console.log(res);
-        //Swal('inscription avec succes ', 'merci de vous conncté !', 'success');
         this.toggleLogin();
         this.openSnackBar('inscription faite avec  avec succès !', 'Fermer');
 
       },
       err => {
-        //Swal('Oops...', 'Something went wrong!', 'error');
-
         console.log(err);
       }
     );
@@ -101,12 +95,6 @@ export class LoginComponent implements OnInit {
         const user = decodedToken.nom;
         console.log('User  ID:', IdUser );
         console.log('Role:', role);
-        if (role =='ROLE_PERS') {
-          await this.router.navigate(['redirTohome']);
-        }
-        if (role === 'ROLE_ADMIN') {
-          await this.router.navigate(['redirTohome']);
-        }
         if (role === 'ROLE_CONDI') {
           await this.router.navigate(['redirTohome']);
         }
@@ -131,3 +119,4 @@ export class LoginComponent implements OnInit {
     this.isLoginActive = false;
   }
 }
+

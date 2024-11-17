@@ -45,14 +45,32 @@
           <span *ngIf="!objectURLs[candidature.id]">N/A</span>
         </p>
         <div class="button-group">
-          <button class="approve-button" (click)="openApproveModal(candidature)">Approuver</button>
+          <button class="approve-button" (click)="openApproveModal(candidature, candidature.id)">Approuver</button>
           <button class="reject-button" (click)="rejeterCandidature(candidature.id)">Rejeter</button>
         </div>
-      </div>
+      
+
+  </div>
+</div>
+<div *ngIf="showApproveModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeApproveModal()">&times;</span>
+    <h2>Planifier l'entretien</ h2>
+    <label for="interviewDate">Date:</label>
+    <input type="date" id="interviewDate" [(ngModel)]="interviewDate" required>
+    
+    <label for="interviewLocation">Lieu:</label>
+    <input type="text" id="interviewLocation" [(ngModel)]="interviewLocation" required>
+    
+    <button (click)="approuver(conditId)">Confirmer</button>
+    <div *ngIf="interviewDate && !isDateValid()" class="error-message">
+      <p>La date doit être supérieure à aujourd'hui.</p>
     </div>
   </div>
+</div>
 
   <div *ngIf="candidatures.length === 0">
     <p>Aucune candidature trouvée.</p>
   </div>
+</div>
 </div>

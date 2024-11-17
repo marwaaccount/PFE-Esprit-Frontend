@@ -24,6 +24,7 @@ import { PopupComponent } from './popup/popup.component';
 import { LoginComponent } from './login/login/login.component';
 import { ProfilComponent } from './login/profil/profil.component';
 import { ModifPasswordComponent } from './login/modif-password/modif-password.component';
+import { LogincondidatComponent } from './login/logincondidat/logincondidat.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ModifPasswordComponent } from './login/modif-password/modif-password.co
     
     ListeficheComponent,
           LoginComponent,
-          ModifPasswordComponent
+          ModifPasswordComponent,
+          LogincondidatComponent
               
   ]
 })

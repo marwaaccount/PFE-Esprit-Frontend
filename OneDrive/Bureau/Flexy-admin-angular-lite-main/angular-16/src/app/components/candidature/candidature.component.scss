@@ -65,3 +65,90 @@
   background-color: #c82333; /* Rouge plus foncé */
   transform: translateY(-2px); /* Effet de survol */
 }
+.modal {
+  position: fixed; /* Fixed position */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+  display: flex; /* Flexbox for centering */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it is on top */
+  transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+.modal-content {
+  background-color: #fff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  width: 400px; /* Set a width for the modal */
+  max-width: 90%; /* Responsive */
+  position: relative; /* For positioning the close button */
+}
+
+.close {
+  position: absolute; /* Absolute positioning */
+  top: 15px; /* Position from the top */
+  right: 20px; /* Position from the right */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1.5em; /* Increase size */
+  color: #888; /* Light gray color */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.close:hover {
+  color: #f00; /* Change color on hover */
+}
+
+h2 {
+  margin: 0 0 20px; /* Margin below the heading */
+  font-size: 1.5em; /* Font size for the heading */
+  color: #333; /* Dark gray color */
+}
+
+label {
+  display: block; /* Block display for labels */
+  margin-bottom: 8px; /* Space below labels */
+  font-weight: bold; /* Bold text */
+  color: #555; /* Medium gray color */
+}
+
+input[type="date"],
+input[type="text"] {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding */
+  border: 1px solid #ccc; /* Border */
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 15px; /* Space below inputs */
+  font-size: 1em; /* Font size */
+}
+
+input[type="date"]:focus,
+input[type="text"]:focus {
+  border-color: #28a745; /* Green border on focus */
+  outline: none; /* Remove outline */
+}
+
+button {
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  font-size: 1em; /* Font size */
+}
+
+button:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.error-message {
+  color: red; /* Red text for errors */
+  margin-top: 10px; /* Space above the error message */
+}

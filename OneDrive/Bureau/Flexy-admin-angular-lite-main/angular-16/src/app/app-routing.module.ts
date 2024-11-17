@@ -1,3 +1,4 @@
+import { LogincondidatComponent } from './components/login/logincondidat/logincondidat.component';
 import { LoginComponent } from './components/login/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -39,6 +40,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: ListeoffreCandidatComponent }, // Default route to home
       { path: 'login', component: LoginComponent },
+      { path: 'logincondi', component: LogincondidatComponent },
       { path: 'alerts', component: AlertsComponent },
       { path: 'offres/:offerId/:mode', component: OffreComponent },
       { path: 'table', component: ProductComponent },
